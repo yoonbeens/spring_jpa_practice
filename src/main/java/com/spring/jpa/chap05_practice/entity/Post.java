@@ -27,6 +27,9 @@ public class Post {
     @Column(nullable = false)
     private String writer; //작성자
 
+    @Column(nullable = false)
+    private String title; //제목
+
     private String content; //내용
 
     @CreationTimestamp
@@ -36,6 +39,7 @@ public class Post {
     @UpdateTimestamp
     private LocalDateTime updateDate;
 
+    //실제 테이블에는 들어가 있지 않지만 연관관계 매핑을 통한 조회 용도
     @OneToMany(mappedBy = "post")
     private List<HashTag> hashTags = new ArrayList<>();
 
