@@ -31,8 +31,10 @@ public class PostApiController {
     public ResponseEntity<?> List(PageDTO pageDTO) {
         log.info("/api/v1/posts?page={}&size={}", pageDTO.getPage(), pageDTO.getSize());
 
-        PostListResponseDTO dto = postService.getPosts(PageDTO dto);
+        PostListResponseDTO dto = postService.getPosts(pageDTO);
 
-        return null;
+        return ResponseEntity
+                .ok()
+                .body(dto);
     }
 }

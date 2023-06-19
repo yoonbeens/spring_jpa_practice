@@ -2,11 +2,13 @@ package com.spring.jpa.chap05_practice.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.spring.jpa.chap05_practice.entity.HashTag;
 import com.spring.jpa.chap05_practice.entity.Post;
 import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter @Setter
 @ToString @EqualsAndHashCode
@@ -29,7 +31,21 @@ public class PostDetailResponseDTO {
         this.content = post.getContent();
         this.regDate = post.getCreateDate();
         //HashTag 같은 경우에는 가공해서 집어넣어야 한다 (리스트의 타입이 서로 다름)
-        this.hashTags = post.getHashTags();
+        this.hashTags = post.getHashTags() //List<HashTag>
+                            //stream: 컬렉션 데이터를 함수 선언 형식으로 처리할 수 있는 객체
+                            .stream()
+                            //스트림 내 요소들에 대해 함수가 적용된 결과를 새로운 요소로 맵핑
+                            .map(HashTag::getTagName)
+                            //스트림 객체를 새로운 리스트의 형태로 리턴 -> this.hashTag에게 대입
+                            .collect(Collectors.toList());
+
+//        List<String> list = new ArrayList<>();
+//        for(HashTag ht : post.getHashTags()) {
+//            list.add(ht.getTagName());
+//        }
+//        this.hashTags = list;
+
+
     }
 
 }
