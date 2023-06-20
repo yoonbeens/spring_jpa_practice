@@ -40,7 +40,7 @@ public class Post {
     private LocalDateTime updateDate;
 
     //실제 테이블에는 들어가 있지 않지만 연관관계 매핑을 통한 조회 용도
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", orphanRemoval = true)
     @Builder.Default //특정 필드를 지정한 값으로 초기화 하는 것을 강제
     private List<HashTag> hashTags = new ArrayList<>();
 
