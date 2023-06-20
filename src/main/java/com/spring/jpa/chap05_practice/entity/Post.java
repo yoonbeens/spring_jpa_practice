@@ -41,7 +41,17 @@ public class Post {
 
     //실제 테이블에는 들어가 있지 않지만 연관관계 매핑을 통한 조회 용도
     @OneToMany(mappedBy = "post")
+    @Builder.Default //특정 필드를 지정한 값으로 초기화 하는 것을 강제
     private List<HashTag> hashTags = new ArrayList<>();
+
+    // 양방향 매핑에서 리스트쪽에 데이터를 추가하는 편의메서드 생성
+    public void addHashTag(HashTag hashTag) {
+        hashTags.add(hashTag);
+        if(this != hashTag.getPost()) {
+            hashTag.setPost(this);
+        }
+    }
+
 
 }
 
