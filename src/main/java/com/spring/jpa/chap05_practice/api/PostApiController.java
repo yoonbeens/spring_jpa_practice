@@ -36,6 +36,7 @@ public class PostApiController {
 
     private final PostService postService;
 
+    //게시물 목록 조회
     @GetMapping
     public ResponseEntity<?> List(PageDTO pageDTO) {
         log.info("/api/v1/posts?page={}&size={}", pageDTO.getPage(), pageDTO.getSize());
@@ -47,7 +48,7 @@ public class PostApiController {
                 .body(dto);
     }
 
-
+    //게시물 개별 조회
     @GetMapping("/{id}")
     public ResponseEntity<?> detail(@PathVariable long id) {
         log.info("/api/v1/post/{}: GET");
@@ -61,6 +62,7 @@ public class PostApiController {
 
     }
 
+    //게시물 등록
     @Operation(summary = "게시물 작성", description = "게시물 작성을 담당하는 메서드입니다.")
     @Parameters(
             {
@@ -133,6 +135,7 @@ public class PostApiController {
         return ResponseEntity.ok().body(responseDTO);
     }
 
+    //게시물 삭제
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) {
         log.info("/api/vi/posts/{} DELETE!", id);
